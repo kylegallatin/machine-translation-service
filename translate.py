@@ -1,7 +1,7 @@
 from transformers import MarianTokenizer, MarianMTModel
 import os
 from typing import List
-from config import *
+
 class Translator():
     def __init__(self, models_dir):
         self.models = {}
