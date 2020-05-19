@@ -18,14 +18,16 @@ class Translator():
             model = MarianMTModel.from_pretrained(path)
             tok = MarianTokenizer.from_pretrained(path)
         except:
-            raise f"Make sure you have downloaded model for {route} translation"
+            return 0,f"Make sure you have downloaded model for {route} translation"
         self.models[route] = (model,tok)
-        print(f"Successfully loaded model for {route} transation")
+        return 1,f"Successfully loaded model for {route} transation"
 
     def translate(self, source, target, text):
         route = f'{source}-{target}'
         if not self.models.get(route):
-            self.load_model(route)
+            success_code, message = self.load_model(route)
+            if not success_code:
+                return message
 
         batch = self.models[route][1].prepare_translation_batch(src_texts=[text])
         gen = self.models[route][0].generate(**batch)
