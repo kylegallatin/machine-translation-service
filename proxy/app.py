@@ -34,8 +34,8 @@ def get_prediction():
     'Content-Type': 'application/json'
     }
 
-    translation = requests.post(f"http://machine-translation-service_{route}_1:5000/translate", headers = headers, data={"text":text})
-
+    r = requests.post(f"http://machine-translation-service_{route}_1:5000/translate", headers = headers, data={"text":text})
+    translation = r.content
     return jsonify({"output":translation})
 
 app.run(host="0.0.0.0")
