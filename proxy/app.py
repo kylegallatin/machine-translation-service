@@ -28,13 +28,13 @@ def get_prediction():
     source = request.json['source']
     target = request.json['target']
     text = request.json['text']
-    route = f'{self.source}-{self.target}'
+    route = f'{source}_{target}'
 
     headers = {
     'Content-Type': 'application/json'
     }
 
-    translation = requests.post(f"{route}:5000/translate", headers = headers, data={"text":text})
+    translation = requests.post(f"machine-translation-service_{route}_1:5000/translate", headers = headers, data={"text":text})
 
     return jsonify({"output":translation})
 

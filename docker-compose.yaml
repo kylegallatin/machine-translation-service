@@ -37,3 +37,6 @@ services:
         command: python app.py
         volumes:
             - data:/app/data
+
+volumes:
+    data:
