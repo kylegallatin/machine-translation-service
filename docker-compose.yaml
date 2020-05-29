@@ -10,11 +10,11 @@ services:
         ports:
             - "5000:5000"
 
-    # translation_base:
-    #     image: translation_base
-    #     build:
-    #         context: .
-    #         dockerfile: Dockerfile
+    translation_base:
+        image: translation_base
+        build:
+            context: .
+            dockerfile: Dockerfile
 
     en_jap:
         image: translation_base

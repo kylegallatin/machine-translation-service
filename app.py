@@ -27,7 +27,7 @@ def get_supported_languages():
 @app.route('/translate', methods=["POST"])
 def get_prediction():
     text = request.json['text']
-    translation = translator.translate(source, target, text)
+    translation = translator.translate(text)
     return jsonify({"output":translation})
 
 app.run(host="0.0.0.0")
