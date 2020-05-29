@@ -3,7 +3,9 @@ import os
 from typing import List
 
 class Translator():
-    def __init__(self, models_dir):
+    def __init__(self, source, target, models_dir):
+        self.source = source
+        self.target = target
         self.models = {}
         self.models_dir = models_dir
 
@@ -22,8 +24,8 @@ class Translator():
         self.models[route] = (model,tok)
         return 1,f"Successfully loaded model for {route} transation"
 
-    def translate(self, source, target, text):
-        route = f'{source}-{target}'
+    def translate(self, text):
+        route = f'{self.source}-{self.target}'
         if not self.models.get(route):
             success_code, message = self.load_model(route)
             if not success_code:

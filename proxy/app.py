@@ -1,9 +1,9 @@
 import os
 from flask import Flask, request, jsonify
 from translate import Translator
+import requests
 
 app = Flask(__name__)
-translator = Translator(os.environ.get("SOURCE_LANG"), os.environ.get("TARGET_LANG"), os.environ.get("MODEL_PATH"))
 
 app.config["DEBUG"] = True # turn off in prod
 
@@ -15,19 +15,28 @@ def health_check():
 @app.route('/lang_routes', methods = ["GET"])
 def get_lang_route():
     lang = request.args['lang']
-    all_langs = translator.get_supported_langs()
+    all_langs = [x.split('-')[-2:] for x in os.listdir(os.environ.get("MODEL_PATH"))]
     lang_routes = [l for l in all_langs if l[0] == lang]
     return jsonify({"output":lang_routes})
 
 @app.route('/supported_languages', methods=["GET"])
 def get_supported_languages():
-    langs = translator.get_supported_langs()
+    langs = [x.split('-')[-2:] for x in os.listdir(os.environ.get("MODEL_PATH"))]
     return jsonify({"output":langs})
 
 @app.route('/translate', methods=["POST"])
 def get_prediction():
+    source = request.json['source']
+    target = request.json['target']
     text = request.json['text']
-    translation = translator.translate(source, target, text)
+    route = f'{self.source}-{self.target}'
+
+    headers = {
+    'Content-Type': 'application/json'
+    }
+    
+    translation = requests.post(f"{route}:5000/translate", headers = headers, data={"text":text})
+
     return jsonify({"output":translation})
 
-app.run(host="localhost")
+app.run(host="0.0.0.0")
