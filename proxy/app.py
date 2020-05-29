@@ -1,6 +1,5 @@
 import os
 from flask import Flask, request, jsonify
-from translate import Translator
 import requests
 
 app = Flask(__name__)
@@ -34,7 +33,7 @@ def get_prediction():
     headers = {
     'Content-Type': 'application/json'
     }
-    
+
     translation = requests.post(f"{route}:5000/translate", headers = headers, data={"text":text})
 
     return jsonify({"output":translation})

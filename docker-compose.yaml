@@ -7,6 +7,8 @@ services:
         environment: 
             - MODEL_PATH=data
         command: python app.py
+        ports:
+            - "5000:5000"
 
     translation_base:
         image: translation_base
@@ -22,7 +24,9 @@ services:
             - TARGET_LANG=jap
             - FLASK_PORT=5000
         command: python app.py
-        
+        volumes:
+            - data:/app/data
+
     jap_en:
         image: translation_base
         environment:
@@ -31,3 +35,5 @@ services:
             - TARGET_LANG=en
             - FLASK_PORT=5001
         command: python app.py
+        volumes:
+            - data:/app/data
