@@ -17,17 +17,17 @@ def get_lang_route():
     lang = request.args['lang']
     all_langs = translator.get_supported_langs()
     lang_routes = [l for l in all_langs if l[0] == lang]
-    return jsonify({"output":lang_routes})
+    return jsonify({"routes":lang_routes})
 
 @app.route('/supported_languages', methods=["GET"])
 def get_supported_languages():
     langs = translator.get_supported_langs()
-    return jsonify({"output":langs})
+    return jsonify({"languages":langs})
 
 @app.route('/translate', methods=["POST"])
 def get_prediction():
     text = request.json['text']
     translation = translator.translate(text)
-    return jsonify({"output":translation})
+    return jsonify({"translation":translation})
 
 app.run(host="0.0.0.0")
