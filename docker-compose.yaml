@@ -10,22 +10,15 @@ services:
         ports:
             - "5000:5000"
 
-    translation_base:
-        image: translation_base
-        build:
-            context: .
-            dockerfile: Dockerfile
-
     en_jap:
         image: translation_base
         environment:
             - MODEL_PATH=data
             - SOURCE_LANG=en
             - TARGET_LANG=jap
-            - FLASK_PORT=5000
         command: python app.py
         volumes:
-            - data:/app/data
+            - ./data:/app/data
 
     jap_en:
         image: translation_base
@@ -33,10 +26,9 @@ services:
             - MODEL_PATH=data
             - SOURCE_LANG=jap
             - TARGET_LANG=en
-            - FLASK_PORT=5001
         command: python app.py
         volumes:
-            - data:/app/data
+            - ./data:/app/data
 
 volumes:
     data:

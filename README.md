@@ -19,9 +19,14 @@ python app.py
 
 To run with docker:
 
+First build the `translation_base` image locally.
 ```
-docker build -t machine-translation-service`
-docker run -p 5000:5000 -v /path/to/models:/app/data -it machine-translation-service
+cd
+docker build -t translation_base
+```
+Then run the service using docker-compose:
+```
+docker-compose up
 ```
 
-The front end should then become available at http://localhost:5000.
+The API should then become available at http://localhost:5000.

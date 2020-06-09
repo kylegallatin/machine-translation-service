@@ -27,7 +27,7 @@ def get_supported_languages():
 def get_prediction():
     source = request.json['source']
     target = request.json['target']
-    text = request.json['text']
+    text = request.json['text'].encode("utf-8")
     route = f'{source}_{target}'
 
     headers = {
