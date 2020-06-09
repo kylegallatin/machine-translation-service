@@ -10,21 +10,21 @@ services:
         ports:
             - "5000:5000"
 
-    en_jap:
+    en_fr:
         image: translation_base
         environment:
             - MODEL_PATH=data
             - SOURCE_LANG=en
-            - TARGET_LANG=jap
+            - TARGET_LANG=fr
         command: python app.py
         volumes:
             - ./data:/app/data
 
-    jap_en:
+    fr_en:
         image: translation_base
         environment:
             - MODEL_PATH=data
-            - SOURCE_LANG=jap
+            - SOURCE_LANG=fr
             - TARGET_LANG=en
         command: python app.py
         volumes:
