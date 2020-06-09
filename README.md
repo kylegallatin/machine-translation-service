@@ -21,7 +21,7 @@ To run with docker:
 
 First build the `translation_base` image locally.
 ```
-cd
+cd translation_base
 docker build -t translation_base
 ```
 Then run the service using docker-compose:
