@@ -1,5 +1,5 @@
 # Machine Translation Service
-Translation flask API for the Helenski NLP models available in the [Huggingface Transformers library](https://huggingface.co/Helsinki-NLP). 
+Translation flask API for the Helsinki NLP models available in the [Huggingface Transformers library](https://huggingface.co/Helsinki-NLP). 
 
 ## Usage
 
