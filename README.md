@@ -20,7 +20,7 @@ python app.py
 To run with docker:
 
 ```
-docker build -t machine-translation-service`
+docker build -t machine-translation-service .
 docker run -p 5000:5000 -v /path/to/models:/app/data -it machine-translation-service
 ```
 
