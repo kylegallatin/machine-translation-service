@@ -29,7 +29,7 @@ class Translator():
             if not success_code:
                 return message
 
-        batch = self.models[route][1].prepare_translation_batch(src_texts=[text])
+        batch = self.models[route][1].prepare_seq2seq_batch(src_texts=list([text]), return_tensors="pt")
         gen = self.models[route][0].generate(**batch)
         words: List[str] = self.models[route][1].batch_decode(gen, skip_special_tokens=True) 
         return words
