@@ -2,13 +2,10 @@ import os
 from flask import Flask, request, jsonify
 from translate import Translator
 from config import *
-import cld3
 import langid
-import fasttext
 
 app = Flask(__name__)
 translator = Translator(MODEL_PATH)
-model = fasttext.load_model('lid.176.bin')
 langid.set_languages(['en', 'zh', 'hi', 'ko', 'de','fr','it', 'es'])
 
 app.config["DEBUG"] = True # turn off in prod
