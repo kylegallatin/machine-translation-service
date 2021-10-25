@@ -39,8 +39,6 @@ def get_prediction():
 def detect_language():
     text = request.json['q']
     detection = langid.classify(text)
-    #detection = model.predict(text, k=1)
-    print(detection)
     return jsonify([{"language": detection[0]}])
 
 
