@@ -2,9 +2,14 @@ import os
 from flask import Flask, request, jsonify
 from translate import Translator
 from config import *
+import cld3
+import langid
+import fasttext
 
 app = Flask(__name__)
 translator = Translator(MODEL_PATH)
+model = fasttext.load_model('lid.176.bin')
+langid.set_languages(['en', 'zh', 'hi', 'ko', 'de','fr','it', 'es'])
 
 app.config["DEBUG"] = True # turn off in prod
 
@@ -29,8 +34,20 @@ def get_supported_languages():
 def get_prediction():
     source = request.json['source']
     target = request.json['target']
-    text = request.json['text']
+    text = request.json['q']
     translation = translator.translate(source, target, text)
-    return jsonify({"output":translation})
+    return jsonify({"translatedText":translation[0]})
 
-app.run(host="0.0.0.0")
+@app.route('/detect', methods=["POST"])
+def detect_language():
+    text = request.json['q']
+    detection = langid.classify(text)
+    #detection = model.predict(text, k=1)
+    print(detection)
+    return jsonify([{"language": detection[0]}])
+
+
+if __name__ == '__main__':
+    translator = Translator(MODEL_PATH)
+    langid.set_languages(['en', 'zh', 'hi', 'ko', 'de','fr','it', 'es'])
+    app.run(host="0.0.0.0", port=7000, debug=False)
